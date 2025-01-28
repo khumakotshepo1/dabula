@@ -47,7 +47,7 @@ export const LoginForm = () => {
   return (
     <div className="flex flex-col lg:flex-row items-center justify-center h-screen bg-blue-100">
       {/* Image Section */}
-      <div className="relative h-64 lg:h-screen w-full overflow-hidden bg-gradient-to-b from-blue-100 to-blue-800">
+      <div className="relative h-[500px] lg:h-screen w-full overflow-hidden bg-gradient-to-b from-blue-100 to-blue-800">
         <Image
           src="/drinking-girl.webp"
           alt="Drinking Girl"
