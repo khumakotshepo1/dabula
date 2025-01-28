@@ -55,27 +55,27 @@ CREATE TABLE IF NOT EXISTS sessions (
 );
 
 -- Transactions table to track purchases and points earned
-CREATE TABLE IF NOT EXISTS transactions (
-    transaction_id SERIAL PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS points (
+    point_id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
-    transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    amount DECIMAL(10, 2) NOT NULL,
+    paid_amount NUMERIC(10, 2) NOT NULL,
     points_earned INT NOT NULL,
-    points_redeemed INT DEFAULT 0
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    added_by INTEGER NOT NULL
 );
 
 -- Rewards table to define reward thresholds
-CREATE TABLE IF NOT EXISTS rewards (
-    reward_id SERIAL PRIMARY KEY,
-    description VARCHAR(255) NOT NULL,
-    points_required INT NOT NULL,
-    reward_value DECIMAL(10, 2) NOT NULL
+CREATE TABLE IF NOT EXISTS quart (
+    quart_id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+    redeemed BOOLEAN DEFAULT false,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Redemptions table to track reward redemptions
 CREATE TABLE IF NOT EXISTS redemptions (
     redemption_id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
-    reward_id INTEGER NOT NULL REFERENCES rewards(reward_id),
+    quart_id INTEGER NOT NULL REFERENCES quart(quart_id) ON DELETE CASCADE,
     redemption_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

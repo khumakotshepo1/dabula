@@ -334,7 +334,7 @@ export function UserRegisterForm() {
               <ArrowLeftIcon className='w-6 h-6' />
               Back
             </Button>
-            <Button variant='secondary' type='button' className='bg-blue-400 dark:bg-blue-600 text-background dark:text-background' onClick={next}>
+            <Button variant='secondary' type='button' className='bg-blue-400 dark:bg-blue-600 text-background dark:text-background hover:bg-blue-400 dark:hover:bg-blue-600' onClick={next}>
               {currentStep === steps.length - 1 ? (
                 <CheckIcon className='w-6 h-6' />
               ) : (

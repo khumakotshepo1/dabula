@@ -21,7 +21,7 @@ export default function RootLayout({
       <AppSidebar />
       <div className="flex flex-col w-full h-screen overflow-y-scroll bg-lighterBackground dark:bg-lighterBackground">
         <DashboardHeader />
-        <section className="flex flex-col justify-between gap-4 p-4">
+        <section className="min-h-screen flex flex-col justify-between gap-4 p-4">
           {children}
         </section>
       </div>

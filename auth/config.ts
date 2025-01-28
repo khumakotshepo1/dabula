@@ -53,17 +53,22 @@ export const authConfig = {
       const isLoggedIn = !!user;
 
       const userRole = user?.role;
+      console.log({ userRole });
 
       const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");
       const isOnAdmin = nextUrl.pathname.startsWith("/admin");
 
-
-      if (isOnDashboard) {
-        if (!isLoggedIn) {
+      if (isOnAdmin) {
+        if (userRole !== "ADMIN" && userRole !== "MANAGER") {
+          console.log(`User: ${userRole} is not an admin`);
           return false;
         }
 
-        if (isOnAdmin && userRole !== "ADMIN" && userRole !== "MANAGER") {
+        return true;
+      }
+
+      if (isOnDashboard) {
+        if (!isLoggedIn) {
           return false;
         }
 
@@ -74,6 +79,8 @@ export const authConfig = {
       if (isLoggedIn) {
         return Response.redirect(new URL("/dashboard", nextUrl));
       }
+
+
 
       return true;
     },

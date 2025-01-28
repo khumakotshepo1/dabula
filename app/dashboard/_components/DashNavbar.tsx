@@ -7,7 +7,7 @@ export type NavLinkProps = {
   title: string;
 }
 
-export function DashNavbar() {
+export function DashNavbar({ role }: { role: string }) {
 
 
   const data: NavLinkProps[] = [
@@ -17,7 +17,7 @@ export function DashNavbar() {
 
   return (
     <header className="flex items-center justify-between p-4 w-full">
-      <h1><span className="hidden lg:block">Dabulamanzi</span> Drin<span className="text-blue-400 text-xl font-black">X</span>aver</h1>
+      <h1 className="flex items-center"><span className="hidden lg:block pr-2">Dabulamanzi</span> Drin<span className="text-blue-400 text-xl font-black">X</span>aver</h1>
       <div className="flex items-center gap-4">
         <nav className="hidden lg:flex items-center gap-4">
           {data.map(({ href, title }) => (
@@ -25,6 +25,11 @@ export function DashNavbar() {
               {title}
             </Link>
           ))}
+          {role === "ADMIN" || role === "MANAGER" ? (
+            <Link href="/admin" className="text-blue-400 hover:text-blue-500">
+              Admin
+            </Link>
+          ) : null}
           <SignOutButton />
         </nav>
         <DashboardNavbarMobile data={data} />

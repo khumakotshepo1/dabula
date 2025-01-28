@@ -1,4 +1,4 @@
-import { GaugeIcon, Settings, TrophyIcon, UsersIcon } from "lucide-react";
+import { GaugeIcon, Settings, TrophyIcon, UsersIcon, UsersRoundIcon } from "lucide-react";
 
 type NavItem = {
   title: string;
@@ -13,9 +13,9 @@ export const dashboardNavApi: NavItem[] = [
     icon: GaugeIcon,
   },
   {
-    title: "Points",
-    url: "/admin/points",
-    icon: TrophyIcon,
+    title: "Customers",
+    url: "/admin/customers",
+    icon: UsersRoundIcon,
   },
   {
     title: "Users",
