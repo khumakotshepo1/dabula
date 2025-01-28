@@ -67,7 +67,7 @@ export const LoginForm = () => {
       </div>
 
       {/* Form Section */}
-      <div className="lg:pl-28 lg:pr-[400px]">
+      <div className="lg:pl-28 lg:pr-[200px]">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(processForm)}
