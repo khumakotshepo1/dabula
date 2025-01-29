@@ -119,24 +119,22 @@ export function CustomersTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-      <div className="flex items-center justify-center py-4 bg-auroraGreen-700">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          <ArrowLeftIcon className="h-5 w-5" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          <ArrowRightIcon className="h-5 w-5" />
-        </Button>
-      </div>
+      {table.getRowModel().rows.length > 5 && (
+        <div className="flex justify-between items-center py-4">
+          <Button
+            onClick={() => table.setPageIndex(0)}
+            className="border-auroraGreen-700 dark:border-auroraGreen-300 rounded-none"
+          >
+            <ArrowLeftIcon className="h-4 w-4" />
+          </Button>
+          <Button
+            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+            className="border-auroraGreen-700 dark:border-auroraGreen-300 rounded-none"
+          >
+            <ArrowRightIcon className="h-4 w-4" />
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

@@ -111,17 +111,17 @@ export const getVerificationTokenByToken = cache(async (token: string | undefine
 export const getCustomers = cache(async (): Promise<CustomerPropType[] | null> => {
   try {
     const { rows } = await sql.query<CustomerPropType>(`
-      SELECT 
-        u.*, 
-        COUNT(p.points_earned) AS points_earned, 
-        COUNT(q.quart_id) AS quarts_redeemed, 
-        COUNT(r.redemption_id) AS redemptions
-      FROM users u
-      LEFT JOIN points p ON u.user_id = p.user_id
-      LEFT JOIN quart q ON u.user_id = q.user_id
-      LEFT JOIN redemptions r ON u.user_id = r.user_id
-      GROUP BY u.user_id
-    `);
+                                                       SELECT 
+                                                       u.*, 
+                                                       COUNT(p.points_earned) AS points_earned, 
+                                                       COUNT(q.quart_id) AS quarts_redeemed, 
+                                                       COUNT(r.redemption_id) AS redemptions
+                                                       FROM users u
+                                                       LEFT JOIN points p ON u.user_id = p.user_id
+                                                       LEFT JOIN quart q ON u.user_id = q.user_id
+                                                       LEFT JOIN redemptions r ON u.user_id = r.user_id
+                                                       GROUP BY u.user_id
+                                                       `);
 
     return rows.length > 0 ? rows : null; // Return null if no rows found
   } catch (error) {
@@ -133,8 +133,60 @@ export const getCustomers = cache(async (): Promise<CustomerPropType[] | null> =
 export const getCustomerByIdentityNumber = cache(async (identity_number: string): Promise<CustomerPropType | null> => {
   try {
     const { rows } = await sql.query<CustomerPropType>(
-      `SELECT u.*, p.*, r.* FROM users u LEFT JOIN points p ON u.user_id = p.user_id LEFT JOIN quart q ON u.user_id = q.user_id LEFT JOIN redemptions r ON u.user_id = r.user_id WHERE u.identity_number = $1`,
+      `      SELECT 
+      u.*,
+      COUNT(p.points_earned) AS points_earned,
+      COUNT(q.quart_id) AS quarts_redeemed,
+      COUNT(r.redemption_id) AS redemptions
+      FROM users u
+      LEFT JOIN points p ON u.user_id = p.user_id
+      LEFT JOIN quarts q ON u.user_id = q.user_id
+      LEFT JOIN redemptions r ON u.user_id = r.user_id
+      WHERE u.identity_number = $1
+      GROUP BY u.user_id
+      ORDER BY u.user_id DESC
+      `,
       [identity_number]
+    );
+
+    return rows[0] || null;
+  } catch (error) {
+    console.log("Error fetching customer", error);
+    throw new Error("Failed to fetch customer.");
+  }
+});
+
+export const getCustomerById = cache(async (id: number): Promise<CustomerPropType | null> => {
+  try {
+    const { rows } = await sql.query<CustomerPropType>(
+      `
+      SELECT 
+      u.*, 
+      COUNT(p.points_earned) AS points_earned, 
+      COUNT(q.quart_id) AS quarts_redeemed, 
+      COUNT(r.redemption_id) AS redemptions
+      FROM users u
+      LEFT JOIN points p ON u.user_id = p.user_id
+      LEFT JOIN quart q ON u.user_id = q.user_id
+      LEFT JOIN redemptions r ON u.user_id = r.user_id
+      WHERE u.user_id = $1
+      GROUP BY u.user_id
+      `,
+      [id]
+    );
+
+    return rows[0] || null;
+  } catch (error) {
+    console.log("Error fetching customer", error);
+    throw new Error("Failed to fetch customer.");
+  }
+});
+
+export const getCustomerByEmail = cache(async (email: string): Promise<CustomerPropType | null> => {
+  try {
+    const { rows } = await sql.query<CustomerPropType>(
+      `SELECT u.*, p.*, r.* FROM users u LEFT JOIN points p ON u.user_id = p.user_id LEFT JOIN quart q ON u.user_id = q.user_id LEFT JOIN redemptions r ON u.user_id = r.user_id WHERE u.email = $1`,
+      [email]
     );
 
     return rows[0] || null;

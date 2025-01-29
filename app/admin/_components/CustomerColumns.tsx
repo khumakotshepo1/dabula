@@ -28,10 +28,14 @@ export const CustomerColumns: ColumnDef<CustomerPropType>[] = [
           alt={first_name}
           width={100}
           height={100}
-          className="w-20 h-20 object-cover rounded-full"
+          className="w-10 h-10 lg:w-16 lg:h-16 object-cover rounded-full"
         />
       );
     },
+  },
+  {
+    accessorKey: "first_name",
+    header: "First Name",
   },
   {
     accessorKey: "identity_number",
@@ -70,7 +74,7 @@ export const CustomerColumns: ColumnDef<CustomerPropType>[] = [
             <DropdownMenuItem>
               <Link
                 className="text-auroraGreen-700 dark:text-auroraGreen-300"
-                href={`/admin/customers/view-customer/${customer_id}`}>
+                href={`/admin/customers/${customer_id}/view-customer`}>
                 View
               </Link>
             </DropdownMenuItem>
@@ -78,7 +82,7 @@ export const CustomerColumns: ColumnDef<CustomerPropType>[] = [
             <DropdownMenuItem>
               <Link
                 className="text-auroraYellow-700 dark:text-auroraYellow-300"
-                href={`/admin/customers/edit-customer/${customer_id}`}>
+                href={`/admin/customers/${customer_id}/edit-customer`}>
                 Edit
               </Link>
             </DropdownMenuItem>
