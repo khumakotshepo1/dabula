@@ -32,7 +32,7 @@ export function DashNavbar({ role }: { role: string }) {
           ) : null}
           <SignOutButton />
         </nav>
-        <DashboardNavbarMobile data={data} />
+        <DashboardNavbarMobile data={data} role={role} />
 
       </div>
     </header>

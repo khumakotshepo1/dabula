@@ -18,16 +18,9 @@ import { dashboardNavApi, ManagerNavApi } from "./dashboard-nav-api"
 export async function AppSidebar() {
   const session = await auth()
 
-  if (!session) {
-    return null
-  }
-
   const role = session?.user?.role;
 
   let nav = ManagerNavApi
-
-  console.log({ role })
-  console.log({ nav })
 
   if (role === "ADMIN") {
     nav = dashboardNavApi
@@ -35,7 +28,7 @@ export async function AppSidebar() {
 
   return (
     <Sidebar>
-      <SidebarContent>
+      <SidebarContent className="bg-blue-100">
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -43,7 +36,7 @@ export async function AppSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild className="hover:bg-lighterBackground">
                     <Link href={item.url}>
-                      <item.icon className="text-auroraGreen-700 dark:text-auroraGreen-300" />
+                      <item.icon className="text-blue-400" />
                       <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
@@ -54,7 +47,12 @@ export async function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <SignOutButton />
+        <div className="flex flex-col gap-2 p-2 items-center">
+          <SignOutButton />
+          <p className="text-xs font-bold text-center text-blue-400">
+            {session?.user?.email}
+          </p>
+        </div>
         <SidebarRail />
       </SidebarFooter>
     </Sidebar>

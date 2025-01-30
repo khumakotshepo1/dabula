@@ -10,7 +10,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { NavLinkProps } from "./DashNavbar";
 import { SignOutButton } from "@/components/sign-button";
 
-export default function MobileNav({ data }: { data: NavLinkProps[] }) {
+export default function MobileNav({ data, role }: { data: NavLinkProps[], role: string }) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const pathname = usePathname();
@@ -49,7 +49,10 @@ export default function MobileNav({ data }: { data: NavLinkProps[] }) {
               {item.title}
             </Link>
           ))}
-          <SignOutButton />
+          {role === "ADMIN" || role === "MANAGER" ? (
+            <SignOutButton />
+          ) : null}
+
         </div>
       </motion.div>
     );
