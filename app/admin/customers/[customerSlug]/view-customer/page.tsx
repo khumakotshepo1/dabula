@@ -10,8 +10,6 @@ export default async function CustomerViewPage(props: { params: Params }) {
 
   const customer = await getCustomerById(parseInt(customerSlug)) as CustomerPropType;
 
-  console.log({ customer })
-
   return (
     <div>
       <CustomerView customer={customer} />
