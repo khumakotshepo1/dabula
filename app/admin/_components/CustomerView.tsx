@@ -69,15 +69,14 @@ export function CustomerView({ customer }: { customer: CustomerPropType }) {
           </div>
 
           <div key={1} className='flex flex-col gap-6'>
-            <CustomerCard title={"Personal Details"}>
-              <TypographyP>Employee ID Number: {customer.identity_number}</TypographyP>
-              <TypographyP className="capitalize">Names: {customer.first_name} {customer.last_name}</TypographyP>
-            </CustomerCard>
 
-            <CustomerCard title={"Contact Details"}>
-              <TypographyP>Email: {customer.email}</TypographyP>
-              <TypographyP>Phone: {customer.phone}</TypographyP>
-            </CustomerCard>
+          </div>
+
+          <div key={2} className='flex flex-col gap-6'>
+
+          </div>
+
+          <div key={3} className='flex flex-col gap-6'>
 
           </div>
 
